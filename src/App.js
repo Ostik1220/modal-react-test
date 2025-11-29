@@ -1,6 +1,6 @@
-import './App.css';
-import { Component } from 'react';
-import Modal from './Modal/Modal';
+import "./App.css";
+import { Component } from "react";
+import Modal from "./Modal/Modal";
 
 class App extends Component {
   state = {
@@ -19,14 +19,10 @@ class App extends Component {
     return (
       <div className="App">
         <button onClick={this.OpenModal}>Open Modal</button>
-        <Modal
-          isOpen={this.state.isModalOpen}
-          onClose={this.CloseModal}
-        />
+        <Modal isOpen={this.state.isModalOpen} onClose={this.CloseModal} />
       </div>
     );
   }
 }
 
 export default App;
-

@@ -1,58 +1,55 @@
 import { Component } from "react";
-import { Backdrop, ModalContainer } from "./Modal.styled"; 
+import { Backdrop, ModalContainer } from "./Modal.styled";
 
 class Modal extends Component {
-
-state = {
+  state = {
     isOpen: false,
     timeInModal: 0,
-}; 
+  };
 
-startTimer() {
-     if (this.timer) return;
+  startTimer() {
+    if (this.timer) return;
     this.timer = setInterval(() => {
-      this.setState((prevState) => ({ timeInModal: prevState.timeInModal + 1 }));
+      this.setState((prevState) => ({
+        timeInModal: prevState.timeInModal + 1,
+      }));
     }, 1000);
-}
+  }
 
-stopTimer() {
+  stopTimer() {
     clearInterval(this.timer);
-}
+    this.timer = null;
+  }
 
-
-
-componentDidMount() {
+  componentDidMount() {
     console.log("Modal mounted");
     if (this.props.isOpen !== this.state.isOpen) {
-        this.setState({ isOpen: this.props.isOpen });
+      this.setState({ isOpen: this.props.isOpen });
     }
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.props.onClose();
       }
     });
+  }
 
-
-}
-
-componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {
     console.log("Modal updated", this.props.isOpen);
     if (prevProps.isOpen !== this.props.isOpen) {
-        this.setState({ isOpen: this.props.isOpen });
+      this.setState({ isOpen: this.props.isOpen });
     }
 
     if (this.state.isOpen === true) {
-          this.startTimer();
-        } else {
-          this.stopTimer();
-        }
-}
+      this.startTimer();
+    } else {
+      this.stopTimer();
+    }
+  }
 
-componentWillUnmount() {
+  componentWillUnmount() {
     console.log("Modal unmounted");
     this.stopTimer();
-}
-
+  }
 
   render() {
     if (this.state.isOpen === false) {
@@ -71,6 +68,5 @@ componentWillUnmount() {
     }
   }
 }
-
 
 export default Modal;
